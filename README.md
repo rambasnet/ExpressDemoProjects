@@ -46,4 +46,3 @@ Demo NodeJS projects using ExpressJS and MongoDB
 -   \$ npm install
 -   \$ mongod --dbpath=data
 -   \$ npm start
--
