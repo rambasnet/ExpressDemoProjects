@@ -103,7 +103,7 @@ router.get("/dashboard", (req, res, next) => {
 
 router.get("/logout", (req, res, next) => {
     req.session.destroy(function() {
-        console.log(`user: ${user} logged out...`)
+        console.log(`user: ${user.email} logged out...`)
     })
     res.redirect("/login")
 })

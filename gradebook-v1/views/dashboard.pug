@@ -3,5 +3,8 @@ extends layout
 block content
     h1 Dashboard
     h2 Students Grades
-    p All Student's Grades
+    if user
+        h3 Welcome #{user.email} &nbsp;&nbsp;| &nbsp;&nbsp;
+            a(href="/logout") Log out
+    p All Students' Grades
     
