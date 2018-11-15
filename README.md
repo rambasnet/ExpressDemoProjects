@@ -39,21 +39,25 @@ Demo NodeJS projects using ExpressJS and MongoDB
 -   uses gradebook database which is provided inside data folder
 -   demonstrates html forms and data validations
 -   demonstrates server sessions and authentications
+-   automatically creates gradebook database name in the path provided while running mongod
 
 ### instructions:
 
 -   \$ cd gradebook-v1
 -   \$ npm install
+-   \$ mkdir data
 -   \$ mongod --dbpath=data
 -   \$ npm start
 
 ## Gradebook-v2
 
--   uses bootstrap
+-   uses bootstrap theme
+-   automatically creates gradebook database name in the path provided while running mongod
 
 ### instructions:
 
 -   \$ cd gradebook-v2
 -   \$ npm install
+-   \$ mkdir data
 -   \$ mongod --dbpath=data
 -   \$ npm start
