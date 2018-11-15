@@ -23,7 +23,7 @@ Demo NodeJS projects using ExpressJS and MongoDB
 -   serve pug driven static website using node
 -   ctrl+c to kill the node server
 
-## instructions:
+### instructions:
 
 -   \$ cd homepagev2
 -   \$ npm install
@@ -40,9 +40,20 @@ Demo NodeJS projects using ExpressJS and MongoDB
 -   demonstrates html forms and data validations
 -   demonstrates server sessions and authentications
 
-## instructions:
+### instructions:
 
 -   \$ cd gradebook-v1
+-   \$ npm install
+-   \$ mongod --dbpath=data
+-   \$ npm start
+
+## Gradebook-v2
+
+-   uses bootstrap
+
+### instructions:
+
+-   \$ cd gradebook-v2
 -   \$ npm install
 -   \$ mongod --dbpath=data
 -   \$ npm start
