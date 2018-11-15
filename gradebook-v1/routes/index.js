@@ -96,15 +96,19 @@ router.post(
 
 // authenticated page; check if session exists
 router.get("/dashboard", (req, res, next) => {
-    user = req.session.user
-    if (user) res.render("dashboard", { title: "All Students Grades" })
+    var user = req.session.user
+    if (user)
+        res.render("dashboard", { title: "All Students Grades", user: user })
     else res.redirect("/login")
 })
 
 router.get("/logout", (req, res, next) => {
-    req.session.destroy(function() {
-        console.log(`user: ${user.email} logged out...`)
-    })
+    var user = req.session.user
+    if (user) {
+        req.session.destroy(function () {
+            console.log(`user: ${user.email} logged out...`)
+        })
+    }
     res.redirect("/login")
 })
 

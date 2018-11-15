@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    h1= title
+    h3 Welcome #{user.email} &nbsp;&nbsp;| &nbsp;&nbsp;
+        a(href="/logout") Log out
+
+    if msg
+        p= msg
+    
+    form(action="" method="POST")
+        label(for="email") Email:
+        br
+        input(type="text", id="email", name="email" required value= user.email)
+        br
+        br
+        label(for="fname") First name:
+        br
+        input(type="text" id="fname" name="fname" required value= user.firstName)
+        br
+        br
+        label(for="lname") Last name:
+        br
+        input(type="text" id="lname" name="lname" required value= user.lastName)
+        br
+        br
+        br
+        button(type="submit") Update
+
+    

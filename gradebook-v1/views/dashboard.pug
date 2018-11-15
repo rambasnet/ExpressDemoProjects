@@ -5,6 +5,8 @@ block content
     h2 Students Grades
     if user
         h3 Welcome #{user.email} &nbsp;&nbsp;| &nbsp;&nbsp;
+            a(href="/users/profile") Profile
+            | &nbsp;&nbsp;| &nbsp;&nbsp;
             a(href="/logout") Log out
     p All Students' Grades
     
