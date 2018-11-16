@@ -1,5 +1,7 @@
 var express = require("express")
 var router = express.Router()
+// https://github.com/dcodeIO/bcrypt.js
+var bcrypt = require("bcryptjs")
 
 // https://express-validator.github.io/docs/
 const { check, validationResult } = require("express-validator/check")
@@ -31,23 +33,29 @@ router.get("/login", function(req, res, next) {
 })
 
 router.post("/login", function(req, res, next) {
-    let email = req.body.email
-    let password = req.body.password
-    User.findOne({ email: email, password: password }, function(err, user) {
+    var email = req.body.email
+    var password = req.body.password
+    User.findOne({ email: email }, function(err, user) {
         if (err) {
             console.log(err)
             throw err
         }
-        if (!user) {
+        var validUser = false
+        if (user) {
+            // add user to session
+            console.log(user)
+            var hash = user.password
+            validUser = bcrypt.compareSync(password, hash)
+        }
+        if (validUser) {
+            req.session.user = user
+            res.redirect("/grade")
+        } else {
             let context = {
                 title: "Log in",
                 error: "Invalid username and/or password"
             }
             res.render("./private/login", context)
-        } else {
-            // add user to session
-            req.session.user = user
-            res.redirect("/grade")
         }
     })
 })
@@ -100,7 +108,7 @@ router.post(
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 email: req.body.email,
-                password: req.body.password
+                password: bcrypt.hashSync(req.body.password, 10)
             })
             console.log(user)
             user.save(err => {
