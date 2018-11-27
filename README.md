@@ -33,13 +33,12 @@ Demo NodeJS projects using ExpressJS and MongoDB
 ## Gradebook-v1
 
 -   a simple gradebook application
--   keeps track of students grades using MongoDB
+-   keep track of students grades using MongoDB
 -   needs MongoDB community server: https://www.mongodb.com/download-center/community
--   use GUI client such as Robo 3T (https://robomongo.org/) to mange MongoDB
--   uses gradebook database which is provided inside data folder
 -   demonstrates html forms and data validations
 -   demonstrates server sessions and authentications
 -   automatically creates gradebook database name in the path provided while running mongod
+-   use GUI client such as Robo 3T (https://robomongo.org/) to mange MongoDB
 
 ### instructions:
 
