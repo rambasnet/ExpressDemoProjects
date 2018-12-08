@@ -11,10 +11,14 @@ const { sanitizeBody } = require("express-validator/filter")
 var User = require("../models/user")
 var Course = require("../models/course")
 
+function userLoggedIn(req, res) {
+    var user = req.session.user
+    if (user) return user
+    res.redirect("/grade/login")
+}
 // authenticated page; check if session exists
 router.get("/", (req, res, next) => {
-    var user = req.session.user
-    //if (user) {
+    user = userLoggedIn(req, res)
     Course.find({}, function(error, courses) {
         if (error) throw error
         res.render("./private/dashboard", {
@@ -23,20 +27,10 @@ router.get("/", (req, res, next) => {
             courses: courses
         })
     })
-    //} else res.redirect("/grade/login")
 })
 
-// authenticated page; check if session exists
-// same as the root path / for grade route
-// FIXME: it's not complete
 router.get("/dashboard", (req, res, next) => {
-    var user = req.session.user
-    if (user)
-        res.render("./private/dashboard", {
-            title: "Gradebook Dashboard",
-            user: user
-        })
-    else res.redirect("/grade/login") //url
+    res.redirect("/grade")
 })
 
 router.get("/login", function(req, res, next) {
@@ -105,6 +99,8 @@ router.post(
             .escape()
     ],
     function(req, res, next) {
+        // check authentication
+        var user = userLoggedIn(req, res)
         // extract the validation errors from a request
         const errors = validationResult(req)
         // check if there are errors
@@ -148,16 +144,13 @@ router.get("/logout", (req, res, next) => {
 
 /* profile... */
 router.get("/profile", function(req, res, next) {
-    user = req.session.user
-    if (user) res.render("./private/profile", { title: "Profile", user: user })
-    else res.redirect("/grade/login")
+    user = userLoggedIn(req, res)
+    res.render("./private/profile", { title: "Profile", user: user })
 })
 
 router.post("/profile", function(req, res, next) {
     // Is a user logged in?
-    var user = req.session.user
-    if (!user) res.redirect("/grade/login")
-
+    var user = userLoggedIn(req, res)
     var condition = { _id: user._id }
     var update = {
         email: req.body.email,
@@ -183,16 +176,16 @@ router.post("/profile", function(req, res, next) {
 // course...
 // *? optional request parameter
 router.get("/course/:id?", function(req, res, next) {
-    // check if user logged in...
-    //var user = req.session.user
-    //if (user) {
+    // get logged in user
+    var user = userLoggedIn(req, res)
     var courseID = req.params.id
     if (courseID) {
         console.log(`courseID: ${courseID}`)
         var course = Course.findOne({ _id: courseID }, function(err, course) {
             res.render("./private/course", {
                 title: "Update existing course",
-                course: course
+                course: course,
+                errors: []
             })
         })
     } else {
@@ -201,7 +194,6 @@ router.get("/course/:id?", function(req, res, next) {
             errors: []
         })
     }
-    //} else res.redirect("/grade/login")
 })
 
 // either add new or update existing course
@@ -228,6 +220,8 @@ router.post(
             .escape()
     ],
     function(req, res, next) {
+        // check authentication
+        var user = userLoggedIn(req, res)
         // extract the validation errors from a request
         const errors = validationResult(req)
         // check if there are errors
@@ -254,6 +248,8 @@ router.post(
                 updateCourse(res, id, course)
             // add new course
             else addCourse(res, course)
+            // successful - redirect to dashboard
+            res.redirect("/grade")
         }
     }
 )
@@ -266,8 +262,6 @@ function updateCourse(res, id, course) {
         if (err) {
             throw err
         }
-        // successful - redirect to dashboard
-        res.redirect("/grade")
     })
 }
 
@@ -277,8 +271,6 @@ function addCourse(res, course) {
         if (err) {
             return next(err)
         }
-        // successful - redirect to dashboard
-        res.redirect("/grade")
     })
 }
 
@@ -298,6 +290,10 @@ router.post("/deletecourse", function(req, res, next) {
             res.redirect("/grade")
         }
     })
+})
+
+router.get("/addstudent", function(req, res, next) {
+    res.send("FIXME...")
 })
 
 module.exports = router
