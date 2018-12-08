@@ -120,6 +120,47 @@ block content
                     td F
           .card-footer.small.text-muted
             | Updated yesterday at 11:59 PM
+        
+        // Display the following card only if courses array length is 1 or more
+        if courses.length
+          .card.mb-3
+            .card-header
+              i.fas.fa-table
+              |  Course list
+            .card-body
+              .table-responsive
+                table#dataTable.table.table-bordered(width='100%' cellspacing='0')
+                  thead
+                    tr
+                      th Name
+                      th Description
+                      th CRN
+                      th Section
+                      th Tools
+                  tfoot
+                    tr
+                      th Name
+                      th Description
+                      th CRN
+                      th Section
+                      th Tools
+                  tbody
+                    each course in courses
+                      tr
+                        td=course.name
+                        td=course.fullName
+                        td=course.crn
+                        td=course.section
+                        td
+                          - var link = "/grade/course/" + course._id
+                          a.btn.btn-primary(role="button" href= link) Edit
+                          form(method="POST" action="/grade/deletecourse")
+                            input(type="hidden" name= courseID value= course._id)
+                            button.btn.btn-danger(type="submit") Delete
+
+
+            .card-footer.small.text-muted
+              | Updated yesterday at 11:59 PM
 
       // /#wrapper
       // Scroll to Top Button

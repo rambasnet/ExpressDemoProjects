@@ -7,24 +7,35 @@ var bcrypt = require("bcryptjs")
 const { check, validationResult } = require("express-validator/check")
 const { sanitizeBody } = require("express-validator/filter")
 
+// import models
 var User = require("../models/user")
+var Course = require("../models/course")
 
 // authenticated page; check if session exists
 router.get("/", (req, res, next) => {
     var user = req.session.user
-    if (user)
+    //if (user) {
+    Course.find({}, function(error, courses) {
+        if (error) throw error
         res.render("./private/dashboard", {
-            title: "All Students Grades",
-            user: user
+            title: "Gradebook Dashboard",
+            user: user,
+            courses: courses
         })
-    else res.redirect("/grade/login")
+    })
+    //} else res.redirect("/grade/login")
 })
 
 // authenticated page; check if session exists
+// same as the root path / for grade route
+// FIXME: it's not complete
 router.get("/dashboard", (req, res, next) => {
     var user = req.session.user
     if (user)
-        res.render("dashboard", { title: "All Students Grades", user: user })
+        res.render("./private/dashboard", {
+            title: "Gradebook Dashboard",
+            user: user
+        })
     else res.redirect("/grade/login") //url
 })
 
@@ -60,8 +71,9 @@ router.post("/login", function(req, res, next) {
     })
 })
 
+// new user registration
 router.get("/register", function(req, res, next) {
-    res.render("./private/register", { title: "Register" })
+    res.render("./private/register", { title: "Register for an account" })
 })
 
 router.post(
@@ -116,7 +128,7 @@ router.post(
                     return next(err)
                 }
                 // successful - redirect to dashboard
-                // add user to session
+                // add update user to session
                 req.session.user = user
                 res.redirect("/grade")
             })
@@ -134,7 +146,7 @@ router.get("/logout", (req, res, next) => {
     res.redirect("/")
 })
 
-/* GET users listing. */
+/* profile... */
 router.get("/profile", function(req, res, next) {
     user = req.session.user
     if (user) res.render("./private/profile", { title: "Profile", user: user })
@@ -142,28 +154,149 @@ router.get("/profile", function(req, res, next) {
 })
 
 router.post("/profile", function(req, res, next) {
+    // Is a user logged in?
     var user = req.session.user
     if (!user) res.redirect("/grade/login")
 
-    var conditions = { _id: user._id }
+    var condition = { _id: user._id }
     var update = {
         email: req.body.email,
         firstName: req.body.fname,
         lastName: req.body.lname
     }
     var options = {}
-    User.update(conditions, update, options, (err, numAffected) => {
+    User.update(condition, update, options, (err, numAffected) => {
         if (err) throw err
         User.findById(user._id, function(err, updateduser) {
             if (err) throw err
             req.session.user = updateduser
             //console.log(updateduser)
-            res.render("profile", {
+            res.render("./private/profile", {
                 title: "Profile",
                 user: updateduser,
                 msg: "Profile updated successfully!"
             })
         })
+    })
+})
+
+// course...
+// *? optional request parameter
+router.get("/course/:id?", function(req, res, next) {
+    // check if user logged in...
+    //var user = req.session.user
+    //if (user) {
+    var courseID = req.params.id
+    if (courseID) {
+        console.log(`courseID: ${courseID}`)
+        var course = Course.findOne({ _id: courseID }, function(err, course) {
+            res.render("./private/course", {
+                title: "Update existing course",
+                course: course
+            })
+        })
+    } else {
+        res.render("./private/course", {
+            title: "Add a new course",
+            errors: []
+        })
+    }
+    //} else res.redirect("/grade/login")
+})
+
+// either add new or update existing course
+router.post(
+    "/course/:id?",
+    [
+        // Validate fields.
+        check("name", "Short name must not be empty.")
+            .isLength({ min: 1 })
+            .trim(),
+        check("fullName", "Full name must not be empty.")
+            .isLength({ min: 1 })
+            .trim(),
+        check("crn", "CRN must not be empty.")
+            .isLength({ min: 1 })
+            .trim(),
+        // email must be valid
+        check("section", "Section must not be empty.")
+            .isLength({ min: 1 })
+            .trim(),
+        // Sanitize fields.
+        sanitizeBody("*")
+            .trim()
+            .escape()
+    ],
+    function(req, res, next) {
+        // extract the validation errors from a request
+        const errors = validationResult(req)
+        // check if there are errors
+        if (!errors.isEmpty()) {
+            let context = {
+                title: "Add a new course",
+                errors: errors.array()
+            }
+            res.render("./private/course", context)
+        } else {
+            // create a user document and insert into mongodb collection
+            let course = {
+                name: req.body.name,
+                fullName: req.body.fullName,
+                crn: req.body.crn,
+                section: req.body.section
+            }
+            // check if data is there on console
+            console.log(course)
+            // check if the form data is for update or new course
+            var id = req.params.id
+            if (id)
+                // update
+                updateCourse(res, id, course)
+            // add new course
+            else addCourse(res, course)
+        }
+    }
+)
+
+function updateCourse(res, id, course) {
+    var condition = { _id: id }
+    var option = {}
+    var update = {}
+    Course.update(condition, course, option, (err, rowsAffected) => {
+        if (err) {
+            throw err
+        }
+        // successful - redirect to dashboard
+        res.redirect("/grade")
+    })
+}
+
+function addCourse(res, course) {
+    var c = new Course(course)
+    c.save(err => {
+        if (err) {
+            return next(err)
+        }
+        // successful - redirect to dashboard
+        res.redirect("/grade")
+    })
+}
+
+// either add new or update existing course
+router.post("/deletecourse", function(req, res, next) {
+    // create a user document and insert into mongodb collection
+    console.log(req.body)
+    let query = {
+        id: req.body.courseID
+    }
+    // check if data is there on console
+    console.log(query)
+    Course.deleteOne(query, function(err) {
+        if (err) throw err
+        else {
+            console.log(`Deleted course id: ${query}`)
+            res.redirect("/grade")
+        }
     })
 })
 
