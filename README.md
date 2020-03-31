@@ -20,6 +20,7 @@ Demo NodeJS projects using ExpressJS and MongoDB
 
 -   convert a static site into Express app
 -   uses pug template framework to minimize html contents
+-   beginner's guide to pug - [https://www.sitepoint.com/a-beginners-guide-to-pug/](https://www.sitepoint.com/a-beginners-guide-to-pug/)
 -   serve pug driven static website using node
 -   ctrl+c to kill the node server
 

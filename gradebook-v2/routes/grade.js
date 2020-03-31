@@ -4,8 +4,8 @@ var router = express.Router()
 var bcrypt = require("bcryptjs")
 
 // https://express-validator.github.io/docs/
-const { check, validationResult } = require("express-validator/check")
-const { sanitizeBody } = require("express-validator/filter")
+const { check, validationResult } = require("express-validator")
+const { sanitizeBody } = require("express-validator")
 
 // import models
 var User = require("../models/user")
@@ -16,6 +16,7 @@ function userLoggedIn(req, res) {
     if (user) return user
     res.redirect("/grade/login")
 }
+
 // authenticated page; check if session exists
 router.get("/", (req, res, next) => {
     user = userLoggedIn(req, res)
@@ -118,13 +119,14 @@ router.post(
                 email: req.body.email,
                 password: bcrypt.hashSync(req.body.password, 10)
             })
-            console.log(user)
+            //console.log(user)
             user.save(err => {
                 if (err) {
                     return next(err)
                 }
                 // successful - redirect to dashboard
                 // add update user to session
+                console.log('Register successful:', user)
                 req.session.user = user
                 res.redirect("/grade")
             })

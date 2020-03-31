@@ -9,7 +9,7 @@ var session = require("express-session")
 var mongoose = require("mongoose")
 var mongo_db_url = "mongodb://localhost:27017/gradebook"
 var mongoDB = process.env.MONGODB_URI || mongo_db_url
-mongoose.connect(mongoDB)
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
 mongoose.Promise = global.Promise
 var db = mongoose.connection
 db.on("error", console.error.bind(console, "MongoDB connection error:"))
@@ -28,7 +28,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 // handles server side sessions
-app.use(session({ secret: "fd83rndfp;353laf;343some scret!" }))
+app.use(session({ secret: "fd83rndfp;353laf;343some scret!", resave: false, saveUninitialized: false }))
 app.use(express.static(path.join(__dirname, "public")))
 
 app.use("/", publicRouter)
