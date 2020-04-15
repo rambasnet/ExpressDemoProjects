@@ -1,0 +1,32 @@
+nav(class="navbar sticky-top navbar-expand-sm bg-dark navbar-dark")
+  a(class="navbar-brand" href="index.html")
+  button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar")
+    span(class="navbar-toggler-icon")
+
+  div(class="collapse navbar-collapse" id="collapsibleNavbar")
+    ul.navbar-nav
+      li.nav-item
+          if currentPage=="index"
+            a(id="currentPage", class="nav-link" href="index") Home
+          else
+            a(class="nav-link" href="index") Home
+      li.nav-item
+        if currentPage=="teaching"
+          a(id="currentPage" class="nav-link" href="teaching") Teaching
+        else
+          a(class="nav-link" href="teaching") Teaching
+      li.nav-item
+        if currentPage=="research"
+          a(id="currentPage" class="nav-link" href="research") Research
+        else
+          a(class="nav-link" href="research") Research
+      li.nav-item
+        if currentPage=="resources"
+          <a id="currentPage" class="nav-link" href="resources">Resources</a>
+        else
+          <a class="nav-link" href="resources">Resources</a>
+      li.nav-item
+        if currentPage == "contact"
+          <a id="currentPage" class="nav-link" href="contact">Contact</a>
+        else
+          <a class="nav-link" href="contact">Contact</a>     

@@ -1,63 +1,101 @@
 # ExpressJS Demo Projects
 
-Demo NodeJS projects using ExpressJS and MongoDB
+Demo Express Websites and Applications
 
-## Homepage v1
+## Homepage V1
 
--   convert a static site into Express app
--   doesn't use pug template framework
--   demonstrates how a static website can be served as Express app
+- convert a static site into Express app
+- doesn't use pug template framework
+- demonstrates how a static website can be served as Express app
 
-## instructions:
+### Instruction to run Homepage V1
 
--   \$ cd homepagev1
--   \$ npm install
--   \$ npm start
--   point browser to localhost:3000
--   \$ ctrl+c to kill the node server
+- \$ cd homepagev1
+- \$ npm install
+- \$ npm start
+- point browser to localhost:3000
+- \$ ctrl+c to kill the node server
 
-## Homepage v2
+## Homepage V2
 
--   convert a static site into Express app
--   uses pug template framework to minimize html contents
--   beginner's guide to pug - [https://www.sitepoint.com/a-beginners-guide-to-pug/](https://www.sitepoint.com/a-beginners-guide-to-pug/)
--   serve pug driven static website using node
--   ctrl+c to kill the node server
+- convert a static site into Express app
+- uses pug template framework to minimize html contents
+- beginner's guide to pug - [https://www.sitepoint.com/a-beginners-guide-to-pug/](https://www.sitepoint.com/a-beginners-guide-to-pug/)
+- serve pug driven static website using node
+- ctrl+c to kill the node server
 
-### instructions:
+### Instructions to run Homepage V2
 
--   \$ cd homepagev2
--   \$ npm install
--   \$ npm start
--   point browser to localhost:3000
+```bash
+$ cd homepagev2
+$ npm install
+$ npm start
+```
 
-## Gradebook-v1
+- point browser to localhost:3000
 
--   a simple gradebook application
--   keep track of students grades using MongoDB
--   needs MongoDB community server: https://www.mongodb.com/download-center/community
--   demonstrates html forms and data validations
--   demonstrates server sessions and authentications
--   automatically creates gradebook database name in the path provided while running mongod
--   use GUI client such as Robo 3T (https://robomongo.org/) to mange MongoDB
+## Homepage V3
 
-### instructions:
+- same as V2 but uses Jade as templage framework
+- almost a drop in replacement for pug
+- main difference: Jade doesn't allow html template unlike pug!
+  - compare: views/includes/nav.pug in V2 vs views/includes/nav.pug in V3
 
--   \$ cd gradebook-v1
--   \$ npm install
--   \$ mkdir data
--   \$ mongod --dbpath=data
--   \$ npm start
+### Instructions to run Homepage V3
 
-## Gradebook-v2
+```bash
+$ cd homepagev2
+$ npm install
+$ npm start
+```
+
+- point browser to localhost:3000
+
+## Gradebook V1
+
+- a simple gradebook application
+- keep track of students grades using MongoDB
+- needs MongoDB community server: [https://www.mongodb.com/download-center/community](https://www.mongodb.com/download-center/community)
+- demonstrates html forms and data validations
+- demonstrates server sessions and authentications
+- automatically creates gradebook database name in the path provided while running mongod
+- use GUI client such as Robo 3T [https://robomongo.org/](https://robomongo.org/) or MongoDB Compass to mange MongoDB
+
+### Instructions to run Gradebook V1
+
+- first run mongodb local server from a terminal
+
+```bash
+$ mkdir data
+$ mongod --dbpath=data
+```
+
+- then run the gradebook v1 app from another terminal
+
+```bash
+$ cd gradebook-v1
+$ npm install
+$ npm start
+```
+
+## Gradebook V2
 
 -   uses bootstrap theme
 -   automatically creates gradebook database name in the path provided while running mongod
 
-### instructions:
+### Instructions to run Gradebook V2
 
--   \$ cd gradebook-v2
--   \$ npm install
--   \$ mkdir data
--   \$ mongod --dbpath=data
--   \$ npm start
+- first run mongodb local server from a terminal
+
+```bash
+$ mkdir data
+$ mongod --dbpath=data
+```
+
+- then run the gradebook v1 app from another terminal
+
+```bash
+$ cd gradebook-v1
+$ npm install
+$ npm start
+```
