@@ -33,12 +33,14 @@ $ cd homepagev2
 $ npm install
 $ npm start
 ```
+
 - point browser to localhost:3000
 - ctrl+c to kill the node server
 
 ## Homepage V3
 
-- same as Hompage V2 but uses Jade as templage framework
+- same as Hompage V2 but uses Jade as template framework
+- learn about Jade here - [https://www.sitepoint.com/jade-tutorial-for-beginners/](https://www.sitepoint.com/jade-tutorial-for-beginners/)
 - Jade is almost a drop-in replacement for Pug
 - main difference: Jade doesn't allow html template unlike pug!
   - compare: views/includes/nav.pug in V2 vs views/includes/nav.pug in V3
