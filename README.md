@@ -38,15 +38,15 @@ $ npm start
 
 ## Homepage V3
 
-- same as V2 but uses Jade as templage framework
-- almost a drop in replacement for pug
+- same as Hompage V2 but uses Jade as templage framework
+- Jade is almost a drop-in replacement for Pug
 - main difference: Jade doesn't allow html template unlike pug!
   - compare: views/includes/nav.pug in V2 vs views/includes/nav.pug in V3
 
 ### Instructions to run Homepage V3
 
 ```bash
-$ cd homepagev2
+$ cd homepagev3
 $ npm install
 $ npm start
 ```
