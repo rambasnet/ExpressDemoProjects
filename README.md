@@ -1,6 +1,6 @@
 # ExpressJS Demo Projects
 
-Demo Express Websites and Applications
+Express-based Demo Websites and Applications
 
 ## Homepage V1
 
@@ -10,11 +10,14 @@ Demo Express Websites and Applications
 
 ### Instruction to run Homepage V1
 
-- \$ cd homepagev1
-- \$ npm install
-- \$ npm start
+```bash
+$ cd homepagev1
+$ npm install
+$ npm start
+```
+
 - point browser to localhost:3000
-- \$ ctrl+c to kill the node server
+- \$ ctrl+c - to kill the node server
 
 ## Homepage V2
 
@@ -22,7 +25,6 @@ Demo Express Websites and Applications
 - uses pug template framework to minimize html contents
 - beginner's guide to pug - [https://www.sitepoint.com/a-beginners-guide-to-pug/](https://www.sitepoint.com/a-beginners-guide-to-pug/)
 - serve pug driven static website using node
-- ctrl+c to kill the node server
 
 ### Instructions to run Homepage V2
 
@@ -31,8 +33,8 @@ $ cd homepagev2
 $ npm install
 $ npm start
 ```
-
 - point browser to localhost:3000
+- ctrl+c to kill the node server
 
 ## Homepage V3
 
@@ -50,6 +52,7 @@ $ npm start
 ```
 
 - point browser to localhost:3000
+- ctrl+c to kill the node server
 
 ## Gradebook V1
 
@@ -77,6 +80,8 @@ $ cd gradebook-v1
 $ npm install
 $ npm start
 ```
+- point browser to localhost:3000
+- ctrl+c to kill the node server
 
 ## Gradebook V2
 
@@ -99,3 +104,5 @@ $ cd gradebook-v1
 $ npm install
 $ npm start
 ```
+- point browser to localhost:3000
+- ctrl+c to kill the node server
