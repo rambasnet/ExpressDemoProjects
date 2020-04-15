@@ -13,6 +13,15 @@ router.get("/", function(req, res, next) {
     res.render("index", context)
 })
 
+router.get("/index.html", function(req, res, next) {
+    let context = {
+        title: "About",
+        currentPage: "index",
+        year: currentYear
+    }
+    res.render("index", context)
+})
+
 router.get("/index", function(req, res, next) {
     let context = {
         title: "About",
