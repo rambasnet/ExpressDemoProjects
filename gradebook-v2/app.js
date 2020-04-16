@@ -28,7 +28,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 // handles server side sessions
-app.use(session({ secret: "fd83rndfp;353laf;343some scret!", resave: false, saveUninitialized: false }))
+app.use(session({ 
+    secret: "fd83rndfp;353laf;343someasdfscadsfret!", 
+    resave: true,
+    name: 'SESSION_ID',
+    saveUninitialized: true }))
+
 app.use(express.static(path.join(__dirname, "public")))
 
 app.use("/", publicRouter)

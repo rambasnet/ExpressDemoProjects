@@ -20,7 +20,9 @@ router.get("/login", function(req, res, next) {
 router.post("/login", function(req, res, next) {
     let email = req.body.email
     let password = req.body.password
-    User.findOne({ email: email, password: password }, function(err, user) {
+    // mongoose query projection; include all attributes but password
+    // https://mongoosejs.com/docs/api.html#query_Query-projection
+    User.findOne({ email: email, password: password }, '-password', function(err, user) {
         if (err) {
             console.log(err)
             throw err

@@ -7,8 +7,10 @@ block content
 
     if msg
         p= msg
+
+    #ajax
     
-    form(action="" method="POST")
+    form#profile(action="" method="POST")
         label(for="email") Email:
         br
         input(type="text", id="email", name="email" required value= user.email)
@@ -26,5 +28,35 @@ block content
         br
         br
         button(type="submit") Update
+        button#btnAjax Ajax Update
 
+    script(src='/javascripts/jquery.min.js')
+
+    script.
+        $(function() {
+            $("#btnAjax").click( (e) => {
+                var frm = $("#profile");
+                console.log('event ', e);
+                e.preventDefault(); // prevent default reload
+                $.ajax({
+                    url: frm.attr('action'), //action/route to submit the form to
+                    type : frm.attr('method'), // type of request
+                    data : frm.serialize(), // data to be sent to the server
+                    success: (resData) => { // on success data will be received!
+                        console.log(resData);
+                        if(resData.msg) {
+                            $('#ajax').attr('style', 'color:green').html(resData.msg);
+                            $('#email').val(resData.user.email)
+                            $('#fname').val(resData.user.firstName)
+                            $('#lname').val(resData.user.lastName)
+                        } else {
+                            $('div').attr('style', 'color:red').html('Sorry, some error occured!');
+                        }
+                    },
+                    error: ()=> {
+                        $('#ajax').attr('style', 'color:red').html('Sorry, some error occurred!');
+                    }
+                });
+            });
+        });
     

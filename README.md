@@ -59,10 +59,12 @@ $ npm start
 ## Gradebook V1
 
 - a simple gradebook application
-- keep track of students grades using MongoDB
+- keeps track of students grades using MongoDB
 - needs MongoDB community server: [https://www.mongodb.com/download-center/community](https://www.mongodb.com/download-center/community)
 - demonstrates html forms and data validations
+- uses mongoose - [https://mongoosejs.com/](https://mongoosejs.com/) to create Model and query MongoDB
 - demonstrates server sessions and authentications
+- demonstrate a simple AJAX call using jQuery (see profile page)
 - automatically creates gradebook database name in the path provided while running mongod
 - use GUI client such as Robo 3T [https://robomongo.org/](https://robomongo.org/) or MongoDB Compass to mange MongoDB
 
@@ -82,13 +84,15 @@ $ cd gradebook-v1
 $ npm install
 $ npm start
 ```
+
 - point browser to localhost:3000
 - ctrl+c to kill the node server
 
 ## Gradebook V2
 
--   uses bootstrap theme
--   automatically creates gradebook database name in the path provided while running mongod
+- everything V1 has plus more
+- uses bootstrap theme
+- automatically creates gradebook database name in the path provided while running mongod sever
 
 ### Instructions to run Gradebook V2
 
@@ -106,5 +110,6 @@ $ cd gradebook-v1
 $ npm install
 $ npm start
 ```
+
 - point browser to localhost:3000
 - ctrl+c to kill the node server

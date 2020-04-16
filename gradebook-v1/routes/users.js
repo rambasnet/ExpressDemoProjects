@@ -13,7 +13,7 @@ router.get("/profile", function(req, res, next) {
 router.post("/profile", function(req, res, next) {
     var user = req.session.user
     if (!user) res.redirect("/login")
-
+    console.log('body = ', req.body)
     var conditions = { _id: user._id }
     var update = {
         email: req.body.email,
@@ -21,17 +21,28 @@ router.post("/profile", function(req, res, next) {
         lastName: req.body.lname
     }
     var options = {}
-    User.update(conditions, update, options, (err, numAffected) => {
+    User.updateOne(conditions, update, options, (err, numAffected) => {
         if (err) throw err
-        User.findById(user._id, function(err, updateduser) {
+        // mongoose query projection; include all attributes but password
+        // https://mongoosejs.com/docs/api.html#query_Query-projection
+        User.findById(user._id, '-password', function(err, updateduser) {
             if (err) throw err
             req.session.user = updateduser
             //console.log(updateduser)
-            res.render("profile", {
-                title: "Profile",
-                user: updateduser,
-                msg: "Profile updated successfully!"
-            })
+            // check if request is AJAX
+            if (req.xhr)
+            {
+                // send json data
+                res.json({msg: 'Profile updated successfully using AJAX!',
+                    user: updateduser
+                });
+            }
+            // if regular post render the whole profile.pug
+            else res.render("profile", {
+                    title: "Profile",
+                    user: updateduser,
+                    msg: "Profile updated successfully!"
+                });
         })
     })
 })
