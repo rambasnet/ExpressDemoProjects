@@ -94,6 +94,7 @@ $ npm start
 - everything V1 has plus more
 - password is hashed
 - UI is revamped with bootstrap and theme
+- uses express-validator [https://express-validator.github.io/](https://express-validator.github.io/) to validate form data
 - automatically creates gradebook database name in the path provided while running mongod sever
 - register for an account before you can login
 - site has public contents and private/authenticated pages with dashboard
