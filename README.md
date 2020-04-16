@@ -66,6 +66,7 @@ $ npm start
 - demonstrates server sessions and authentications
 - demonstrate a simple AJAX call using jQuery (see profile page)
 - automatically creates gradebook database name in the path provided while running mongod
+- register for an account before you can login
 - use GUI client such as Robo 3T [https://robomongo.org/](https://robomongo.org/) or MongoDB Compass to mange MongoDB
 
 ### Instructions to run Gradebook V1
@@ -91,8 +92,11 @@ $ npm start
 ## Gradebook V2
 
 - everything V1 has plus more
-- uses bootstrap theme
+- password is hashed
+- UI is revamped with bootstrap and theme
 - automatically creates gradebook database name in the path provided while running mongod sever
+- register for an account before you can login
+- site has public contents and private/authenticated pages with dashboard
 
 ### Instructions to run Gradebook V2
 

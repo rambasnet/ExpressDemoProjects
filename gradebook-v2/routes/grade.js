@@ -5,7 +5,7 @@ var bcrypt = require("bcryptjs")
 
 // https://express-validator.github.io/docs/
 const { check, validationResult } = require("express-validator")
-const { sanitizeBody } = require("express-validator")
+const { body } = require("express-validator")
 
 // import models
 var User = require("../models/user")
@@ -48,12 +48,11 @@ router.post("/login", function(req, res, next) {
         }
         var validUser = false
         if (user) {
-            // add user to session
-            console.log(user)
             var hash = user.password
             validUser = bcrypt.compareSync(password, hash)
         }
         if (validUser) {
+            // add user to session
             req.session.user = user
             res.redirect("/grade")
         } else {
@@ -75,6 +74,7 @@ router.post(
     "/register",
     [
         // Validate fields.
+        // express-validator
         check("firstName", "First name must not be empty.")
             .isLength({ min: 1 })
             .trim(),
@@ -94,8 +94,8 @@ router.post(
         check("password1", "two passwords do not match")
             .exists()
             .custom((value, { req }) => value === req.body.password),
-        // Sanitize fields.
-        sanitizeBody("*")
+        // Sanitize all fields.
+        body("*")
             .trim()
             .escape()
     ],
@@ -162,7 +162,8 @@ router.post("/profile", function(req, res, next) {
     var options = {}
     User.update(condition, update, options, (err, numAffected) => {
         if (err) throw err
-        User.findById(user._id, function(err, updateduser) {
+        // project/return all attributes but password.
+        User.findById(user._id, '-password', function(err, updateduser) {
             if (err) throw err
             req.session.user = updateduser
             //console.log(updateduser)
@@ -217,7 +218,7 @@ router.post(
             .isLength({ min: 1 })
             .trim(),
         // Sanitize fields.
-        sanitizeBody("*")
+        body("*")
             .trim()
             .escape()
     ],
