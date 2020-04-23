@@ -57,7 +57,7 @@ router.post(
         check("email", "Not a valid email.")
             .isEmail()
             .trim(),
-        check("password", "Password must be at leat 5 chars long")
+        check("password", "Password must be at least 5 chars long")
             .isLength({ min: 5 })
             .trim(),
         check("password1", "two passwords do not match")

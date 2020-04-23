@@ -71,7 +71,7 @@ $ npm start
 
 ### Instructions to run Gradebook V1
 
-- first run mongodb local server from a terminal
+- first run mongodb local server from a terminal using default port 27017
 
 ```bash
 $ mkdir data
@@ -101,7 +101,7 @@ $ npm start
 
 ### Instructions to run Gradebook V2
 
-- first run mongodb local server from a terminal
+- first run mongodb local server from a terminal using default port 27017
 
 ```bash
 $ mkdir data
@@ -111,7 +111,7 @@ $ mongod --dbpath=data
 - then run the gradebook v1 app from another terminal
 
 ```bash
-$ cd gradebook-v1
+$ cd gradebook-v2
 $ npm install
 $ npm start
 ```
