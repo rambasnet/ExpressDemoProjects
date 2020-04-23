@@ -50,7 +50,7 @@ block content
                             $('#fname').val(resData.user.firstName)
                             $('#lname').val(resData.user.lastName)
                         } else {
-                            $('div').attr('style', 'color:red').html('Sorry, some error occured!');
+                            $('#ajax').attr('style', 'color:red').html('Sorry, some error occured!');
                         }
                     },
                     error: ()=> {
