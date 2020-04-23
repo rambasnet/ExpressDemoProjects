@@ -11,7 +11,7 @@ Express-based Demo Websites and Applications
 ### Instruction to run Homepage V1
 
 ```bash
-$ cd homepagev1
+$ cd homepage-v1
 $ npm install
 $ npm start
 ```
@@ -29,7 +29,7 @@ $ npm start
 ### Instructions to run Homepage V2
 
 ```bash
-$ cd homepagev2
+$ cd homepage-v2
 $ npm install
 $ npm start
 ```
@@ -48,7 +48,7 @@ $ npm start
 ### Instructions to run Homepage V3
 
 ```bash
-$ cd homepagev3
+$ cd homepage-v3
 $ npm install
 $ npm start
 ```
