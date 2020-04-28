@@ -127,8 +127,9 @@ router.post(
                 // successful - redirect to dashboard
                 // add update user to session
                 console.log('Register successful:', user)
-                req.session.user = user
-                res.redirect("/grade")
+                //req.session.user = user
+                //res.redirect("/grade")
+                res.redirect('/login')
             })
         }
     }
