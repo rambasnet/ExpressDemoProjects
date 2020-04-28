@@ -108,7 +108,7 @@ $ mkdir data
 $ mongod --dbpath=data
 ```
 
-- then run the gradebook v1 app from another terminal
+- then run the gradebook v2 app from another terminal
 
 ```bash
 $ cd gradebook-v2
